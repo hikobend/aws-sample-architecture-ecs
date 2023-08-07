@@ -12,6 +12,8 @@ module "network" {
 }
 
 module "elasticache" {
-  source = "../../modules/elasticache"
-  env    = var.env
+  source            = "../../modules/elasticache"
+  private_subnet_1a = module.network.private_subnet_1a
+  private_subnet_1c = module.network.private_subnet_1c
+  env               = var.env
 }
