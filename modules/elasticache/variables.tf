@@ -13,6 +13,11 @@ variable "redis_sg_id" {
   type        = string
 }
 
+variable "availability_zone_1a" {
+  description = "Availability zone 1a"
+  type        = string
+}
+
 variable "env" {
   description = "The environment to deploy to"
   type        = string

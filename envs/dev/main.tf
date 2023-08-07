@@ -12,9 +12,10 @@ module "network" {
 }
 
 module "elasticache" {
-  source            = "../../modules/elasticache"
-  private_subnet_1a = module.network.private_subnet_1a
-  private_subnet_1c = module.network.private_subnet_1c
-  redis_sg_id       = module.network.redis_sg_id
-  env               = var.env
+  source               = "../../modules/elasticache"
+  private_subnet_1a    = module.network.private_subnet_1a
+  private_subnet_1c    = module.network.private_subnet_1c
+  availability_zone_1a = module.network.availability_zone_1a
+  redis_sg_id          = module.network.redis_sg_id
+  env                  = var.env
 }

@@ -12,3 +12,8 @@ output "redis_sg_id" {
   value       = module.elasticache_sg.security_group_id
   description = "Redis security group id"
 }
+
+output "availability_zone_1a" {
+  value       = module.network.azs[0]
+  description = "Availability zone 1a"
+}
