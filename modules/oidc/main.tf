@@ -12,7 +12,6 @@ resource "aws_iam_policy" "Terraform-OIDC-policy" {
       {
         "Effect" : "Allow",
         "NotAction" : [
-          "iam:CreateServiceLinkedRole",
           "iam:DeleteServiceLinkedRole",
           "iam:ListRoles",
           "organizations:DescribeOrganization",
