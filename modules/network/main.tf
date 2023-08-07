@@ -20,3 +20,21 @@ module "network" {
   nat_gateway_tags         = { Name = "${var.env}-nat-gateway" }
   nat_eip_tags             = { Name = "${var.env}-elatic-ip" }
 }
+
+# ALB(https)
+module "alb_sg" {
+  source = "terraform-aws-modules/security-group/aws"
+
+  name        = "${var.env}-alb-sg"
+  description = "ALB security group"
+  vpc_id      = module.network.vpc_id
+
+  ingress_cidr_blocks = ["0.0.0.0/0"]
+  ingress_rules       = ["https-443-tcp"]
+  egress_with_cidr_blocks = [
+    {
+      rule        = "all-all"
+      cidr_blocks = "0.0.0.0/0"
+    }
+  ]
+}
