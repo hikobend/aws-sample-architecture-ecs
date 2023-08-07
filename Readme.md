@@ -8,10 +8,55 @@
 ## ディレクトリ構成
 ```console
 .
+├── .github
+│   ├── ISSUE_TEMPLATE # Issueテンプレート
+│   │   └── 機能追加.md
+│   ├── PULL_REQUEST_TEMPLATE.md # PullRequestテンプレート
+│   └── workflows
+│       ├── dev_linter.yml # dev環境に対して、Linterをかける
+│       ├── dev_plan.yml # dev環境にPlanを実行するCI
+│       ├── dev_tfsec.yml # dev環境にtfsecを実行するCI
+│       ├── envs_apply.yml # 環境を選択してAWSリソースを作成するCI
+│       ├── prepare_apply.yml # prepareのAWSリソースを作成するCI
+│       └── preprare_plan.yml # prepareにPlanを実行するCI
+├── .gitignore # githubに表示しないファイルを設定
 ├── architecture ＃ アーキテクチャ図を管理するディレクトリ
 │   └── ecs.png　# 今回作成するアーキテクチャ図
+├── envs
+│   ├── dev # dev環境
+│   |   ├── dev_linter.yml # dev環境に対して、Linterをかける
+│   |   ├── dev_plan.yml # dev環境にPlanを実行するCI
+│   |   ├── dev_tfsec.yml # dev環境にtfsecを実行するCI
+│   |   ├── envs_apply.yml # 環境を選択してAWSリソースを作成するCI
+│   |   ├── prepare_apply.yml # prepareのAWSリソースを作成するCI
+│   |   └── preprare_plan.yml # prepareにPlanを実行するCI
+│   ├── prd
+│   └── stg
+├── modules # 呼び出すリソースを作成
+│   ├── dev_tfstate # dev環境でtfstateを管理するリソース
+│   │   ├── main.tf # dev環境でtfstateを作成するのに必要なAWSリソース
+│   │   ├── outputs.tf # 外部から呼び出す時に使用
+│   │   └── variables.tf # ディレクトリ内で使用するvariables一覧
+│   ├── network # networkを管理するディレクトリ vpcやSGを作成
+│   │   ├── main.tf # network環境を作成するのに必要なAWSリソース
+│   │   ├── outputs.tf # 外部から呼び出す時に使用
+│   │   └── variables.tf # ディレクトリ内で使用するvariable一覧
+│   ├── oidc # OIDC周りのリソース IAMを作成
+│   │   ├── main.tf # OIDCを作成するのに必要なAWSリソース
+│   │   ├── outputs.tf # 外部から呼び出す時に使用
+│   │   └── variables.tf # ディレクトリ内で使用するvariables一覧
+│   └── prepare_tfstate # prepareのtfstateを管理するディレクトリ
+│       ├── main.tf # prepareでtfstateを作成するのに必要なAWSリソース
+│       ├── outputs.tf # 外部から呼び出す時に使用
+│       └── variables.tf # ディレクトリ内で使用するvariables一覧
+├── prepare # 共通リソースを作成 環境によらず作成するリソース
+│   ├── backend.tf # tfstateを管理
+│   ├── main.tf #  # 共通リソースで使用するAWSのリソースを構築
+│   ├── provider.tf # terraformの設定
+│   └── variables.tf # 共通環境で使用するvariable一覧
 └── readme.md # ディレクトリ内の説明
 ```
+
 
 ## 実装方法
 - state管理は、ベストプラクティスよりDynamoDBとS3で管理 StateLockをかけるため
