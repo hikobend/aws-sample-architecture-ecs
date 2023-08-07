@@ -77,6 +77,10 @@ module "backend_sg" {
     {
       rule                     = "all-all"
       source_security_group_id = module.database_sg.security_group_id
+    },
+    {
+      rule                     = "all-all"
+      source_security_group_id = module.elasticache_sg.security_group_id
     }
   ]
 }
