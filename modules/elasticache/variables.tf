@@ -12,3 +12,9 @@ variable "redis_sg_id" {
   description = "Redis security group id"
   type        = string
 }
+
+variable "env" {
+  description = "The environment to deploy to"
+  type        = string
+  default     = "dev"
+}
