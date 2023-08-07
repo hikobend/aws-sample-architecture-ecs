@@ -7,3 +7,8 @@ output "private_subnet_1c" {
   value       = module.network.private_subnets[1]
   description = "Private subnet 1c"
 }
+
+output "redis_sg_id" {
+  value       = module.elasticache.redis_sg_id
+  description = "Redis security group id"
+}
