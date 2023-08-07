@@ -61,11 +61,11 @@ module "frontend_sg" {
 }
 
 module "backend_sg" {
-  source      = "terraform-aws-modules/security-group/aws"
-  description = "Backend security group"
-  name        = "${var.env}-backend-sg"
+  source = "terraform-aws-modules/security-group/aws"
 
-  vpc_id = module.network.vpc_id
+  name        = "${var.env}-backend-sg"
+  description = "Backend security group"
+  vpc_id      = module.network.vpc_id
 
   ingress_with_source_security_group_id = [
     {
@@ -82,11 +82,26 @@ module "backend_sg" {
 }
 
 module "database_sg" {
-  source      = "terraform-aws-modules/security-group/aws"
-  description = "Database security group"
-  name        = "${var.env}-database-sg"
+  source = "terraform-aws-modules/security-group/aws"
 
-  vpc_id = module.network.vpc_id
+  name        = "${var.env}-database-sg"
+  description = "Database security group"
+  vpc_id      = module.network.vpc_id
+
+  ingress_with_source_security_group_id = [
+    {
+      rule                     = "all-all"
+      source_security_group_id = module.backend_sg.security_group_id
+    }
+  ]
+}
+
+module "elasticache_sg" {
+  source = "terraform-aws-modules/security-group/aws"
+
+  name        = "${var.env}-elasticache-sg"
+  description = "Elasticache security group"
+  vpc_id      = module.network.vpc_id
 
   ingress_with_source_security_group_id = [
     {
