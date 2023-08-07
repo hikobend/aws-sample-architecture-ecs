@@ -1,3 +1,12 @@
+resource "aws_iam_service_linked_role" "elasticache" {
+  aws_service_name = "elasticache.amazonaws.com"
+}
+
+resource "aws_elasticache_subnet_group" "this" {
+  name       = "${var.env}-redis-subnet-group"
+  subnet_ids = [var.private_subnet_1a, var.private_subnet_1c]
+}
+
 resource "aws_elasticache_cluster" "this" {
   cluster_id         = "${var.env}-redis-cluster"
   engine             = "redis"
@@ -10,9 +19,3 @@ resource "aws_elasticache_cluster" "this" {
   availability_zone  = var.availability_zone_1a
   security_group_ids = [var.redis_sg_id]
 }
-
-resource "aws_elasticache_subnet_group" "this" {
-  name       = "${var.env}-redis-subnet-group"
-  subnet_ids = [var.private_subnet_1a, var.private_subnet_1c]
-}
-
