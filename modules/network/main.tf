@@ -31,10 +31,10 @@ module "alb_sg" {
 
   ingress_cidr_blocks = ["0.0.0.0/0"]
   ingress_rules       = ["https-443-tcp"]
-  egress_with_cidr_blocks = [
+  egress_with_source_security_group_id = [
     {
-      rule        = "all-all"
-      cidr_blocks = "0.0.0.0/0"
+      rule                     = "all-all"
+      source_security_group_id = module.frontend_sg.security_group_id
     }
   ]
 }
