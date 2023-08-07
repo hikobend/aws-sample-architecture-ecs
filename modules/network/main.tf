@@ -39,10 +39,10 @@ module "alb_sg" {
   ]
 }
 
-module "front_sg" {
+module "frontend_sg" {
   source = "terraform-aws-modules/security-group/aws"
 
-  name = "${var.env}-front-sg"
+  name = "${var.env}-frontend-sg"
 
   vpc_id = module.network.vpc_id
 
@@ -52,4 +52,25 @@ module "front_sg" {
       source_security_group_id = module.alb_sg.security_group_id
     }
   ]
+  egress_with_cidr_blocks = [
+    {
+      rule        = "all-all"
+      cidr_blocks = "0.0.0.0/0"
+    }
+  ]
 }
+
+# module "backend_sg" {
+#   source = "terraform-aws-modules/security-group/aws"
+
+#   name = "${var.env}-backend-sg"
+
+#   vpc_id = module.network.vpc_id
+
+#   ingress_with_source_security_group_id = [
+#     {
+#       rule                     = "all-all"
+#       source_security_group_id = module.alb_sg.security_group_id
+#     }
+#   ]
+# }
