@@ -9,6 +9,6 @@ output "private_subnet_1c" {
 }
 
 output "redis_sg_id" {
-  value       = module.elasticache.redis_sg_id
+  value       = module.elasticache_sg.security_group_id
   description = "Redis security group id"
 }
