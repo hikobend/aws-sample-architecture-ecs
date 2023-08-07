@@ -38,3 +38,18 @@ module "alb_sg" {
     }
   ]
 }
+
+module "front_sg" {
+  source = "terraform-aws-modules/security-group/aws"
+
+  name = "${var.env}-front-sg"
+
+  vpc_id = module.network.vpc_id
+
+  ingress_with_source_security_group_id = [
+    {
+      rule                     = "all-all"
+      source_security_group_id = module.alb_sg.security_group_id
+    }
+  ]
+}
