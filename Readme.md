@@ -33,19 +33,19 @@
 │   ├── prd
 │   └── stg
 ├── modules # 呼び出すリソースを作成
-│   ├── dev_tfstate # dev環境でtfstateを管理するリソース
+│   ├── dev_tfstate # dev環境でtfstateを管理するリソース S3 + DynamoDBを作成
 │   │   ├── main.tf # dev環境でtfstateを作成するのに必要なAWSリソース
 │   │   ├── outputs.tf # 外部から呼び出す時に使用
 │   │   └── variables.tf # ディレクトリ内で使用するvariables一覧
-│   ├── network # networkを管理するディレクトリ vpcやSGを作成
+│   ├── network # vpcやSGを作成
 │   │   ├── main.tf # network環境を作成するのに必要なAWSリソース
 │   │   ├── outputs.tf # 外部から呼び出す時に使用
 │   │   └── variables.tf # ディレクトリ内で使用するvariable一覧
-│   ├── oidc # OIDC周りのリソース IAMを作成
+│   ├── oidc # OIDCのIAMを作成
 │   │   ├── main.tf # OIDCを作成するのに必要なAWSリソース
 │   │   ├── outputs.tf # 外部から呼び出す時に使用
 │   │   └── variables.tf # ディレクトリ内で使用するvariables一覧
-│   └── prepare_tfstate # prepareのtfstateを管理するディレクトリ
+│   └── prepare_tfstate # prepareのtfstateを管理するディレクトリ S3を作成
 │       ├── main.tf # prepareでtfstateを作成するのに必要なAWSリソース
 │       ├── outputs.tf # 外部から呼び出す時に使用
 │       └── variables.tf # ディレクトリ内で使用するvariables一覧
