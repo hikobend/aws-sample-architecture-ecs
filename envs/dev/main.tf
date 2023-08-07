@@ -10,3 +10,8 @@ module "network" {
   private_subnets = local.network.private_subnets
   env             = var.env
 }
+
+module "elasticache" {
+  source = "../../modules/elasticache"
+  env    = var.env
+}
