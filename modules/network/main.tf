@@ -73,4 +73,25 @@ module "backend_sg" {
       source_security_group_id = module.frontend_sg.security_group_id
     }
   ]
+  egress_with_source_security_group_id = [
+    {
+      rule                     = "all-all"
+      source_security_group_id = module.database_sg.security_group_id
+    }
+  ]
+}
+
+module "database_sg" {
+  source      = "terraform-aws-modules/security-group/aws"
+  description = "Database security group"
+  name        = "${var.env}-database-sg"
+
+  vpc_id = module.network.vpc_id
+
+  ingress_with_source_security_group_id = [
+    {
+      rule                     = "all-all"
+      source_security_group_id = module.backend_sg.security_group_id
+    }
+  ]
 }
