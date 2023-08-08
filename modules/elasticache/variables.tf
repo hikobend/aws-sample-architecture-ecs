@@ -18,6 +18,24 @@ variable "availability_zone_1a" {
   type        = string
 }
 
+variable "node_type" {
+  description = "The node type to use"
+  type        = string
+  default     = "cache.t3.micro"
+}
+
+variable "num_cache_nodes" {
+  description = "The number of cache nodes to use"
+  type        = number
+  default     = 1
+}
+
+variable "engine_version" {
+  description = "The engine version to use"
+  type        = string
+  default     = "6.2"
+}
+
 variable "env" {
   description = "The environment to deploy to"
   type        = string
