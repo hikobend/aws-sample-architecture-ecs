@@ -1,3 +1,8 @@
+output "vpc_id" {
+  value       = module.network.vpc_id
+  description = "VPC id"
+}
+
 output "private_subnet_1a" {
   value       = module.network.private_subnets[0]
   description = "Private subnet 1a"
