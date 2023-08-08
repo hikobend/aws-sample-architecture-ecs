@@ -37,6 +37,10 @@
 │   │   ├── main.tf # dev環境でtfstateを作成するのに必要なAWSリソース
 │   │   ├── outputs.tf # 外部から呼び出す時に使用
 │   │   └── variables.tf # ディレクトリ内で使用するvariables一覧
+│   ├── elasticache # elasticacheを作成
+│   │   ├── main.tf # elasticacheを作成するのに必要なAWSリソース
+│   │   ├── outputs.tf # 外部から呼び出す時に使用
+│   │   └── variables.tf # ディレクトリ内で使用するvariable一覧
 │   ├── network # vpcやSGを作成
 │   │   ├── main.tf # network環境を作成するのに必要なAWSリソース
 │   │   ├── outputs.tf # 外部から呼び出す時に使用

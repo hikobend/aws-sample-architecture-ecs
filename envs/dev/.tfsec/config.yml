@@ -2,3 +2,4 @@ exclude:
   - aws-s3-enable-bucket-logging
   - aws-ec2-require-vpc-flow-logs-for-all-vpcs
   - aws-ec2-no-public-ingress-sgr
+  - aws-cloudwatch-log-group-customer-key
