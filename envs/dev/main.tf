@@ -23,3 +23,8 @@ module "elasticache" {
   engine_version       = local.elasticache.engine_version
   env                  = var.env
 }
+
+module "aurora" {
+  source = "../../modules/aurora"
+  env    = var.env
+}
