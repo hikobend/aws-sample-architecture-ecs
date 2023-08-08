@@ -25,6 +25,8 @@ module "elasticache" {
 }
 
 module "aurora" {
-  source = "../../modules/aurora"
-  env    = var.env
+  source            = "../../modules/aurora"
+  private_subnet_1a = module.network.private_subnet_1a
+  private_subnet_1c = module.network.private_subnet_1c
+  env               = var.env
 }
