@@ -55,18 +55,18 @@ module "cluster" {
 
   instances = {
     for ordinal_number in ["first"] : ordinal_number => {
-      instance_class = var.instance_class
+      instance_class = "db.t3.medium"
       tags = {
-        Name = "${local.cluster_name}-instance-${ordinal_number}"
+        Name = "${var.env}-instance-${ordinal_number}"
       }
     }
   }
 
-  security_group_rules = {
-    ex1_ingress = {
-      source_security_group_id = var.database_sg_id
-    }
-  }
+  # security_group_rules = {
+  #   ex1_ingress = {
+  #     source_security_group_id = var.database_sg_id
+  #   }
+  # }
 
   tags = {
     Name = "${var.env}-aurora-cluster"
