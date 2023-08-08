@@ -25,9 +25,14 @@ module "elasticache" {
 }
 
 module "aurora" {
-  source            = "../../modules/aurora"
-  vpc_id            = module.network.vpc_id
-  private_subnet_1a = module.network.private_subnet_1a
-  private_subnet_1c = module.network.private_subnet_1c
-  env               = var.env
+  source                          = "../../modules/aurora"
+  vpc_id                          = module.network.vpc_id
+  private_subnet_1a               = module.network.private_subnet_1a
+  private_subnet_1c               = module.network.private_subnet_1c
+  engine                          = local.aurora.engine
+  engine_version                  = local.aurora.engine_version
+  instance_class                  = local.aurora.instance_class
+  enabled_cloudwatch_logs_exports = local.aurora.enabled_cloudwatch_logs_exports
+  instances                       = local.aurora.instances
+  env                             = var.env
 }

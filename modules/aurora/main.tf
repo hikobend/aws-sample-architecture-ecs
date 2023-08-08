@@ -37,9 +37,9 @@ module "cluster" {
   source = "terraform-aws-modules/rds-aurora/aws"
 
   name                            = "${var.env}-aurora-cluster"
-  engine                          = "aurora-mysql"
-  engine_version                  = "8.0.mysql_aurora.3.03.1"
-  instance_class                  = "db.t3.medium"
+  engine                          = var.engine
+  engine_version                  = var.engine_version
+  instance_class                  = var.instance_class
   master_username                 = "terraform"
   master_password                 = "password"
   db_subnet_group_name            = aws_db_subnet_group.aurora_subnet_group.name
@@ -47,15 +47,15 @@ module "cluster" {
   vpc_id                          = var.vpc_id
   port                            = 3306
   monitoring_interval             = 60
-  enabled_cloudwatch_logs_exports = ["audit", "error", "slowquery"]
+  enabled_cloudwatch_logs_exports = var.enabled_cloudwatch_logs_exports
   storage_encrypted               = true
   apply_immediately               = true
   skip_final_snapshot             = true
   deletion_protection             = false
 
   instances = {
-    for ordinal_number in ["first"] : ordinal_number => {
-      instance_class = "db.t3.medium"
+    for ordinal_number in var.instances : ordinal_number => {
+      instance_class = var.instance_class
       tags = {
         Name = "${var.env}-instance-${ordinal_number}"
       }
