@@ -1,19 +1,11 @@
-resource "aws_kms_key" "elasticache_kms_key" {
-  description             = "KMS key for encrypting ElastiCache data at rest"
-  deletion_window_in_days = 10
-  enable_key_rotation     = true
-}
-
 resource "aws_cloudwatch_log_group" "slow_log" {
   name              = "${var.env}-redis-cluster-slow-log"
   retention_in_days = var.retention_in_days
-  kms_key_id        = aws_kms_key.elasticache_kms_key.arn
 }
 
 resource "aws_cloudwatch_log_group" "engine_log" {
   name              = "${var.env}-redis-cluster-engine-log"
   retention_in_days = var.retention_in_days
-  kms_key_id        = aws_kms_key.elasticache_kms_key.arn
 }
 
 resource "aws_elasticache_subnet_group" "this" {
