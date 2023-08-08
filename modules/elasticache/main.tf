@@ -1,11 +1,11 @@
 resource "aws_cloudwatch_log_group" "slow_log" {
   name              = "${var.env}-redis-cluster-slow-log"
-  retention_in_days = var.log_group_retention_in_days
+  retention_in_days = var.retention_in_days
 }
 
 resource "aws_cloudwatch_log_group" "engine_log" {
   name              = "${var.env}-redis-cluster-engine-log"
-  retention_in_days = var.log_group_retention_in_days
+  retention_in_days = var.retention_in_days
 }
 
 resource "aws_elasticache_subnet_group" "this" {
