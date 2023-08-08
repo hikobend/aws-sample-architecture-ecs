@@ -1,3 +1,11 @@
+resource "aws_cloudwatch_log_group" "slow-log" {
+  name = "${var.company_name}-redis-cluster-slow-log"
+}
+
+resource "aws_cloudwatch_log_group" "engine-log" {
+  name = "${var.company_name}-redis-cluster-engine-log"
+}
+
 resource "aws_iam_service_linked_role" "elasticache" {
   aws_service_name = "elasticache.amazonaws.com"
 }
