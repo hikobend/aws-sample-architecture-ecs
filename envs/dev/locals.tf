@@ -6,8 +6,9 @@ locals {
     private_subnets = ["10.0.0.128/26", "10.0.0.192/26"]
   }
   elasticache = {
-    node_type       = "cache.t3.micro"
-    num_cache_nodes = 1
-    engine_version  = "6.2"
+    retention_in_days = 7
+    node_type         = "cache.t3.micro"
+    num_cache_nodes   = 1
+    engine_version    = "6.2"
   }
 }
