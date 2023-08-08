@@ -69,6 +69,6 @@ module "cluster" {
   }
 
   tags = {
-    Name = local.cluster_name
+    Name = "${var.env}-aurora-cluster"
   }
 }
