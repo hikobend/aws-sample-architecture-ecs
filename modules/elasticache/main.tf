@@ -1,6 +1,7 @@
 resource "aws_kms_key" "elasticache_kms_key" {
   description             = "KMS key for encrypting ElastiCache data at rest"
   deletion_window_in_days = 10
+  enable_key_rotation     = true
 }
 
 resource "aws_cloudwatch_log_group" "slow_log" {
