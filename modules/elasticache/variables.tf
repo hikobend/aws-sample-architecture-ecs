@@ -18,7 +18,7 @@ variable "availability_zone_1a" {
   type        = string
 }
 
-variable "log_group_retention_in_days" {
+variable "retention_in_days" {
   description = "The number of days to retain log events"
   type        = number
   default     = 7
