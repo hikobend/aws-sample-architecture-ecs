@@ -24,22 +24,22 @@ module "elasticache" {
   env                  = var.env
 }
 
-module "aurora" {
-  source                          = "../../modules/aurora"
-  vpc_id                          = module.network.vpc_id
-  private_subnet_1a               = module.network.private_subnet_1a
-  private_subnet_1c               = module.network.private_subnet_1c
-  database_user                   = data.aws_ssm_parameter.database_user.value
-  database_password               = data.aws_ssm_parameter.database_password.value
-  database_sg                     = module.network.database_sg
-  family                          = local.aurora.family
-  engine                          = local.aurora.engine
-  engine_version                  = local.aurora.engine_version
-  instance_class                  = local.aurora.instance_class
-  enabled_cloudwatch_logs_exports = local.aurora.enabled_cloudwatch_logs_exports
-  instances                       = local.aurora.instances
-  env                             = var.env
-}
+# module "aurora" {
+#   source                          = "../../modules/aurora"
+#   vpc_id                          = module.network.vpc_id
+#   private_subnet_1a               = module.network.private_subnet_1a
+#   private_subnet_1c               = module.network.private_subnet_1c
+#   database_user                   = data.aws_ssm_parameter.database_user.value
+#   database_password               = data.aws_ssm_parameter.database_password.value
+#   database_sg                     = module.network.database_sg
+#   family                          = local.aurora.family
+#   engine                          = local.aurora.engine
+#   engine_version                  = local.aurora.engine_version
+#   instance_class                  = local.aurora.instance_class
+#   enabled_cloudwatch_logs_exports = local.aurora.enabled_cloudwatch_logs_exports
+#   instances                       = local.aurora.instances
+#   env                             = var.env
+# }
 
 module "parameter_store" {
   source = "../../modules/parameter_store"
