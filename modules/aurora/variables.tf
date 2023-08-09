@@ -13,6 +13,16 @@ variable "private_subnet_1c" {
   type        = string
 }
 
+variable "database_user" {
+  description = "The database user"
+  type        = string
+}
+
+variable "database_password" {
+  description = "The database password"
+  type        = string
+}
+
 variable "engine" {
   description = "The name of the database engine to be used for this DB cluster"
   type        = string

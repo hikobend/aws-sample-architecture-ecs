@@ -40,8 +40,8 @@ module "cluster" {
   engine                          = var.engine
   engine_version                  = var.engine_version
   instance_class                  = var.instance_class
-  master_username                 = "terraform"
-  master_password                 = "password"
+  master_username                 = var.database_user
+  master_password                 = var.database_password
   db_subnet_group_name            = aws_db_subnet_group.aurora_subnet_group.name
   db_parameter_group_name         = aws_db_parameter_group.parameter_group.name
   vpc_id                          = var.vpc_id

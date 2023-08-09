@@ -29,6 +29,8 @@ module "aurora" {
   vpc_id                          = module.network.vpc_id
   private_subnet_1a               = module.network.private_subnet_1a
   private_subnet_1c               = module.network.private_subnet_1c
+  database_user                   = data.aws_ssm_parameter.database_user.value
+  database_password               = data.aws_ssm_parameter.database_password.value
   engine                          = local.aurora.engine
   engine_version                  = local.aurora.engine_version
   instance_class                  = local.aurora.instance_class
