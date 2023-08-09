@@ -23,6 +23,11 @@ variable "database_password" {
   type        = string
 }
 
+variable "backend_sg_id" {
+  description = "The backend security group id"
+  type        = string
+}
+
 variable "engine" {
   description = "The name of the database engine to be used for this DB cluster"
   type        = string

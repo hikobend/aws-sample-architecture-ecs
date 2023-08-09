@@ -22,3 +22,8 @@ output "availability_zone_1a" {
   value       = module.network.azs[0]
   description = "Availability zone 1a"
 }
+
+output "backend_sg_id" {
+  value       = module.backend_sg.security_group_id
+  description = "Backend security group id"
+}

@@ -85,20 +85,7 @@ module "backend_sg" {
   ]
 }
 
-module "database_sg" {
-  source = "terraform-aws-modules/security-group/aws"
-
-  name        = "${var.env}-database-sg"
-  description = "Database security group"
-  vpc_id      = module.network.vpc_id
-
-  ingress_with_source_security_group_id = [
-    {
-      rule                     = "all-all"
-      source_security_group_id = module.backend_sg.security_group_id
-    }
-  ]
-}
+# dabataseのsgはauroraのmoduleで作成する
 
 module "elasticache_sg" {
   source = "terraform-aws-modules/security-group/aws"

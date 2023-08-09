@@ -62,11 +62,11 @@ module "cluster" {
     }
   }
 
-  # security_group_rules = {
-  #   ex1_ingress = {
-  #     source_security_group_id = var.database_sg_id
-  #   }
-  # }
+  security_group_rules = {
+    ex1_ingress = {
+      source_security_group_id = var.backend_sg_id
+    }
+  }
 
   tags = {
     Name = "${var.env}-aurora-cluster"
