@@ -36,3 +36,8 @@ module "aurora" {
   instances                       = local.aurora.instances
   env                             = var.env
 }
+
+module "parameter_store" {
+  source = "../../modules/parameter_store"
+  env    = var.env
+}
