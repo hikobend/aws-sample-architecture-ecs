@@ -68,3 +68,24 @@ module "cluster" {
     Name = "${var.env}-aurora-cluster"
   }
 }
+
+resource "null_resource" "error_log_retention_policy" {
+  provisioner "local-exec" {
+    command = "aws logs put-retention-policy --log-group-name /aws/rds/cluster/${var.env}-aurora-cluster/error --retention-in-days 7"
+  }
+  depends_on = [module.cluster]
+}
+
+resource "null_resource" "general_log_retention_policy" {
+  provisioner "local-exec" {
+    command = "aws logs put-retention-policy --log-group-name /aws/rds/cluster/${var.env}-aurora-cluster/general --retention-in-days 7"
+  }
+  depends_on = [module.cluster]
+}
+
+resource "null_resource" "slowquery_log_retention_policy" {
+  provisioner "local-exec" {
+    command = "aws logs put-retention-policy --log-group-name /aws/rds/cluster/${var.env}-aurora-cluster/slowquery --retention-in-days 7"
+  }
+  depends_on = [module.cluster]
+}
