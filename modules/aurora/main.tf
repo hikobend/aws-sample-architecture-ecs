@@ -69,12 +69,9 @@ module "cluster" {
   }
 }
 
-data "aws_cloudwatch_log_group" "error" {
-  name = "/aws/rds/cluster/${var.env}-aurora-cluster/error"
+resource "null_resource" "error_log_retention_policy" {
+  provisioner "local-exec" {
+    command = "aws logs put-retention-policy --log-group-name ${var.env}-aurora-cluster --retention-in-days 180"
+  }
+  depends_on = [module.cluster]
 }
-
-resource "aws_cloudwatch_log_group" "modify_error" {
-  name              = data.aws_cloudwatch_log_group.error.name
-  retention_in_days = 7
-}
-
