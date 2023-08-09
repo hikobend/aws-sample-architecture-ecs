@@ -71,7 +71,7 @@ module "cluster" {
 
 resource "null_resource" "error_log_retention_policy" {
   provisioner "local-exec" {
-    command = "aws logs put-retention-policy --log-group-name ${var.env}-aurora-cluster --retention-in-days 180"
+    command = "aws logs put-retention-policy --log-group-name /aws/rds/cluster/${var.env}-aurora-cluster/error --retention-in-days 7"
   }
   depends_on = [module.cluster]
 }
