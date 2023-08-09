@@ -69,17 +69,12 @@ module "cluster" {
   }
 }
 
-data "aws_cloudwatch_log_group" "erorr" {
-  name              = "/aws/rds/cluster/${var.env}-aurora-cluster/error"
+data "aws_cloudwatch_log_group" "error" {
+  name = "/aws/rds/cluster/${var.env}-aurora-cluster/error"
+}
+
+resource "aws_cloudwatch_log_group" "modify_error" {
+  name              = data.aws_cloudwatch_log_group.error.name
   retention_in_days = 7
 }
 
-data "aws_cloudwatch_log_group" "general" {
-  name              = "/aws/rds/cluster/${var.env}-aurora-cluster/general"
-  retention_in_days = 7
-}
-
-data "aws_cloudwatch_log_group" "example" {
-  name              = "/aws/rds/cluster/${var.env}-aurora-cluster/slowquery"
-  retention_in_days = 7
-}
