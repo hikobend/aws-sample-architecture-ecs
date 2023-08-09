@@ -23,8 +23,8 @@ variable "database_password" {
   type        = string
 }
 
-variable "backend_sg_id" {
-  description = "The backend security group id"
+variable "database_sg" {
+  description = "The database security group"
   type        = string
 }
 

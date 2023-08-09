@@ -32,7 +32,7 @@ module "aurora" {
   private_subnet_1c               = module.network.private_subnet_1c
   database_user                   = data.aws_ssm_parameter.database_user.value
   database_password               = data.aws_ssm_parameter.database_password.value
-  backend_sg_id                   = module.network.backend_sg_id
+  database_sg                     = module.network.database_sg
   family                          = local.aurora.family
   engine                          = local.aurora.engine
   engine_version                  = local.aurora.engine_version

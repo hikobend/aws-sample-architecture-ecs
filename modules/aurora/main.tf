@@ -48,6 +48,8 @@ module "cluster" {
   port                            = 3306
   monitoring_interval             = 60
   enabled_cloudwatch_logs_exports = var.enabled_cloudwatch_logs_exports
+  create_security_group           = false
+  vpc_security_group_ids          = [var.database_sg]
   storage_encrypted               = true
   apply_immediately               = true
   skip_final_snapshot             = true
@@ -59,12 +61,6 @@ module "cluster" {
       tags = {
         Name = "${var.env}-instance-${ordinal_number}"
       }
-    }
-  }
-
-  security_group_rules = {
-    ex1_ingress = {
-      source_security_group_id = var.backend_sg_id
     }
   }
 
