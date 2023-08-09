@@ -1,3 +1,8 @@
+variable "cluster_security_group_id" {
+  description = "Aurora security group id"
+  type        = string
+}
+
 variable "cidr" {
   description = "The CIDR block for the VPC"
   type        = string

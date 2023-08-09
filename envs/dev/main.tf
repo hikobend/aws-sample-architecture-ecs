@@ -3,12 +3,13 @@ module "dev_tfstate" {
 }
 
 module "network" {
-  source          = "../../modules/network"
-  cidr            = local.network.cidr
-  azs             = local.network.azs
-  public_subnets  = local.network.public_subnets
-  private_subnets = local.network.private_subnets
-  env             = var.env
+  source                    = "../../modules/network"
+  cidr                      = local.network.cidr
+  azs                       = local.network.azs
+  public_subnets            = local.network.public_subnets
+  private_subnets           = local.network.private_subnets
+  cluster_security_group_id = module.cluster.cluster_security_group_id
+  env                       = var.env
 }
 
 module "elasticache" {
