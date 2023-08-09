@@ -6,6 +6,7 @@ locals {
     private_subnets = ["10.0.0.128/26", "10.0.0.192/26"]
   }
   aurora = {
+    family                          = "aurora-mysql8.0"
     engine                          = "aurora-mysql"
     engine_version                  = "8.0.mysql_aurora.3.03.1"
     instance_class                  = "db.t3.medium"

@@ -9,7 +9,7 @@ resource "aws_db_subnet_group" "aurora_subnet_group" {
 
 resource "aws_db_parameter_group" "parameter_group" {
   name   = "${var.env}-aurora-parameter-group"
-  family = "aurora-mysql8.0"
+  family = var.family
 
   parameter {
     name  = "general_log"

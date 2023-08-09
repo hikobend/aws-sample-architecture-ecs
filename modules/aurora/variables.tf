@@ -28,6 +28,12 @@ variable "backend_sg_id" {
   type        = string
 }
 
+variable "family" {
+  description = "The family of the DB parameter group"
+  type        = string
+  default     = "aurora-mysql8.0"
+}
+
 variable "engine" {
   description = "The name of the database engine to be used for this DB cluster"
   type        = string
