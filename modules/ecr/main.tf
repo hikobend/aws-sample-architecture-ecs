@@ -1,9 +1,9 @@
 module "frontend-ecr" {
-  source = "terraform-aws-modules/ecr/aws"
+  source  = "terraform-aws-modules/ecr/aws"
+  version = "1.6.0"
 
   repository_name = "frontend-ecr"
-
-  repository_read_write_access_arns = ["arn:aws:iam::012345678901:role/terraform"]
+  # repository_read_write_access_arns = ["arn:aws:iam::012345678901:role/terraform"]
   repository_lifecycle_policy = jsonencode({
     rules = [
       {
@@ -21,9 +21,4 @@ module "frontend-ecr" {
       }
     ]
   })
-
-  tags = {
-    Terraform   = "true"
-    Environment = "dev"
-  }
 }
