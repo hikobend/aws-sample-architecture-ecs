@@ -41,6 +41,11 @@ module "aurora" {
   env                             = var.env
 }
 
+module "ecr" {
+  source = "../../modules/ecr"
+  env    = var.env
+}
+
 module "parameter_store" {
   source = "../../modules/parameter_store"
   env    = var.env
