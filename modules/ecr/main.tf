@@ -10,7 +10,7 @@ module "frontend-ecr" {
         rulePriority = 1,
         description  = "Keep last 5 images",
         selection = {
-          tagStatus     = "any",
+          tagStatus     = "tagged",
           tagPrefixList = ["${var.env}-frontend-"],
           countType     = "imageCountMoreThan",
           countNumber   = 5
@@ -35,7 +35,7 @@ module "backend-ecr" {
         rulePriority = 1,
         description  = "Keep last 5 images",
         selection = {
-          tagStatus     = "any",
+          tagStatus     = "tagged",
           tagPrefixList = ["${var.env}-backend-"],
           countType     = "imageCountMoreThan",
           countNumber   = 5
