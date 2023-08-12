@@ -2,9 +2,18 @@ module "network" {
   source  = "terraform-aws-modules/vpc/aws"
   version = "4.0.0"
 
-  cidr                                  = var.cidr
-  azs                                   = var.azs
-  public_subnets                        = var.public_subnets
+  cidr = var.cidr
+  azs  = var.azs
+  public_subnets = [
+    {
+      cidr_block              = "10.0.0.0/26"
+      map_public_ip_on_launch = true
+    },
+    {
+      cidr_block              = "10.0.0.64/26"
+      map_public_ip_on_launch = true
+    }
+  ]
   private_subnets                       = var.private_subnets
   public_subnet_names                   = ["${var.env}-public-subnet-1a", "${var.env}-public-subnet-1c"]
   private_subnet_names                  = ["${var.env}-private-subnet-1a", "${var.env}-private-subnet-1c"]
