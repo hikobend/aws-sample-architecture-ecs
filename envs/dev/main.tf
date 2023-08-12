@@ -46,6 +46,10 @@ module "ecr" {
   env    = var.env
 }
 
+module "ecs" {
+  source = "../../modules/ecs"
+}
+
 module "parameter_store" {
   source = "../../modules/parameter_store"
   env    = var.env
