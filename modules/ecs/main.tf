@@ -71,7 +71,7 @@ resource "aws_service_discovery_http_namespace" "namespace" {
 
 # クラスター
 resource "aws_ecs_cluster" "cluster" {
-  name = "${var.env}--cluster"
+  name = "${var.env}-cluster"
 }
 
 # タスク定義
