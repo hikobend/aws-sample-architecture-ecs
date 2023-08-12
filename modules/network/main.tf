@@ -14,14 +14,13 @@ module "network" {
       map_public_ip_on_launch = true
     }
   ]
-  private_subnets                       = var.private_subnets
-  public_subnet_names                   = ["${var.env}-public-subnet-1a", "${var.env}-public-subnet-1c"]
-  private_subnet_names                  = ["${var.env}-private-subnet-1a", "${var.env}-private-subnet-1c"]
-  enable_dns_hostnames                  = true
-  enable_dns_support                    = true
-  enable_nat_gateway                    = true
-  one_nat_gateway_per_az                = true
-  public_subnet_map_public_ip_on_launch = [true, true]
+  private_subnets        = var.private_subnets
+  public_subnet_names    = ["${var.env}-public-subnet-1a", "${var.env}-public-subnet-1c"]
+  private_subnet_names   = ["${var.env}-private-subnet-1a", "${var.env}-private-subnet-1c"]
+  enable_dns_hostnames   = true
+  enable_dns_support     = true
+  enable_nat_gateway     = true
+  one_nat_gateway_per_az = true
 
   vpc_tags                 = { Name = "${var.env}-vpc" }
   public_route_table_tags  = { Name = "${var.env}-route-table-public" }
