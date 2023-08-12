@@ -23,6 +23,11 @@ output "availability_zone_1a" {
   description = "Availability zone 1a"
 }
 
+output "frontend_sg" {
+  value       = module.frontend_sg.security_group_id
+  description = "Frontend security group id"
+}
+
 output "database_sg" {
   value       = module.database_sg.security_group_id
   description = "Database security group id"
