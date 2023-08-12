@@ -1,5 +1,20 @@
-variable "frontend_sg" {
-  description = "Frontend security group id"
+variable "alb_sg" {
+  description = "ALB security group id"
+  type        = string
+}
+
+# variable "frontend_sg" {
+#   description = "Frontend security group id"
+#   type        = string
+# }
+
+variable "public_subnet_1a" {
+  description = "Public subnet id in availability zone 1a"
+  type        = string
+}
+
+variable "public_subnet_1c" {
+  description = "Public subnet id in availability zone 1c"
   type        = string
 }
 

@@ -3,6 +3,16 @@ output "vpc_id" {
   description = "VPC id"
 }
 
+output "public_subnet_1a" {
+  value       = module.network.public_subnets[0]
+  description = "Public subnet 1a"
+}
+
+output "public_subnet_1c" {
+  value       = module.network.public_subnets[1]
+  description = "Public subnet 1c"
+}
+
 output "private_subnet_1a" {
   value       = module.network.private_subnets[0]
   description = "Private subnet 1a"
@@ -13,14 +23,14 @@ output "private_subnet_1c" {
   description = "Private subnet 1c"
 }
 
-output "redis_sg_id" {
-  value       = module.elasticache_sg.security_group_id
-  description = "Redis security group id"
-}
-
 output "availability_zone_1a" {
   value       = module.network.azs[0]
   description = "Availability zone 1a"
+}
+
+output "alb_sg" {
+  value       = module.alb_sg.security_group_id
+  description = "ALB security group id"
 }
 
 output "frontend_sg" {
@@ -31,4 +41,9 @@ output "frontend_sg" {
 output "database_sg" {
   value       = module.database_sg.security_group_id
   description = "Database security group id"
+}
+
+output "redis_sg_id" {
+  value       = module.elasticache_sg.security_group_id
+  description = "Redis security group id"
 }
