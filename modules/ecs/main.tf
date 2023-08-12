@@ -161,7 +161,7 @@ resource "aws_ecs_service" "client" {
   network_configuration {
     assign_public_ip = true
     security_groups  = [var.alb_sg]
-    subnets          = [var.private_subnet_1a, var.private_subnet_1c]
+    subnets          = [var.public_subnet_1a, var.public_subnet_1c]
   }
 
   service_connect_configuration {
