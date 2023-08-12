@@ -12,3 +12,9 @@ variable "private_subnet_1c" {
   description = "Private subnet id in availability zone 1c"
   type        = string
 }
+
+variable "env" {
+  description = "The environment to deploy to"
+  type        = string
+  default     = "dev"
+}

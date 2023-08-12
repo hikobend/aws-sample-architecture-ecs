@@ -51,6 +51,7 @@ module "ecs" {
   frontend_sg       = module.network.frontend_sg
   private_subnet_1a = module.network.private_subnet_1a
   private_subnet_1c = module.network.private_subnet_1c
+  env               = var.env
 }
 
 module "parameter_store" {
