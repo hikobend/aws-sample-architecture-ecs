@@ -180,41 +180,41 @@ resource "aws_ecs_service" "client" {
   }
 }
 
-# # サービス(サーバー側)
-# resource "aws_ecs_service" "server" {
-#   name                   = "nginx-server"
-#   cluster                = aws_ecs_cluster.cluster.arn
-#   task_definition        = aws_ecs_task_definition.server-task.arn
-#   desired_count          = 1
-#   launch_type            = "FARGATE"
-#   platform_version       = "1.4.0"
-#   enable_execute_command = true
+# サービス(サーバー側)
+resource "aws_ecs_service" "server" {
+  name                   = "nginx-server"
+  cluster                = aws_ecs_cluster.cluster.arn
+  task_definition        = aws_ecs_task_definition.server-task.arn
+  desired_count          = 1
+  launch_type            = "FARGATE"
+  platform_version       = "1.4.0"
+  enable_execute_command = true
 
-#   network_configuration {
-#     assign_public_ip = true
-#     security_groups  = [aws_security_group.sg.id]
-#     subnets          = [aws_subnet.public_1.id, aws_subnet.public_2.id]
-#   }
+  network_configuration {
+    assign_public_ip = true
+    security_groups  = [var.frontend_sg]
+    subnets          = [var.private_subnet_1a, var.private_subnet_1c]
+  }
 
-#   service_connect_configuration {
-#     enabled = true
+  service_connect_configuration {
+    enabled = true
 
-#     log_configuration {
-#       log_driver = "awslogs"
-#       options = {
-#         awslogs-group         = "/ecs/svccon-server"
-#         awslogs-region        = "ap-northeast-1"
-#         awslogs-stream-prefix = "svccon-server"
-#       }
-#     }
+    log_configuration {
+      log_driver = "awslogs"
+      options = {
+        awslogs-group         = "/ecs/svccon-server"
+        awslogs-region        = "ap-northeast-1"
+        awslogs-stream-prefix = "svccon-server"
+      }
+    }
 
-#     namespace = aws_service_discovery_http_namespace.namespace.arn
+    namespace = aws_service_discovery_http_namespace.namespace.arn
 
-#     service {
-#       client_alias {
-#         port = 80
-#       }
-#       port_name = "webserver"
-#     }
-#   }
-# }
+    service {
+      client_alias {
+        port = 80
+      }
+      port_name = "webserver"
+    }
+  }
+}
