@@ -22,6 +22,100 @@ module "network" {
   nat_eip_tags             = { Name = "${var.env}-elatic-ip" }
 }
 
+# ALB(https)
+module "alb_sg" {
+  source = "terraform-aws-modules/security-group/aws"
+
+  name        = "${var.env}-alb-sg"
+  description = "ALB security group"
+  vpc_id      = module.network.vpc_id
+
+  ingress_cidr_blocks = ["0.0.0.0/0"]
+  ingress_rules       = ["https-443-tcp", "http-80-tcp"]
+  egress_with_source_security_group_id = [
+    {
+      rule                     = "all-all"
+      source_security_group_id = module.frontend_sg.security_group_id
+    }
+  ]
+}
+
+module "frontend_sg" {
+  source = "terraform-aws-modules/security-group/aws"
+
+  name        = "${var.env}-frontend-sg"
+  description = "Frontend security group"
+  vpc_id      = module.network.vpc_id
+
+  ingress_with_source_security_group_id = [
+    {
+      rule                     = "all-all"
+      source_security_group_id = module.alb_sg.security_group_id
+    }
+  ]
+  egress_with_source_security_group_id = [
+    {
+      rule                     = "all-all"
+      source_security_group_id = module.backend_sg.security_group_id
+    }
+  ]
+}
+
+module "backend_sg" {
+  source = "terraform-aws-modules/security-group/aws"
+
+  name        = "${var.env}-backend-sg"
+  description = "Backend security group"
+  vpc_id      = module.network.vpc_id
+
+  ingress_with_source_security_group_id = [
+    {
+      rule                     = "all-all"
+      source_security_group_id = module.frontend_sg.security_group_id
+    }
+  ]
+  egress_with_source_security_group_id = [
+    {
+      rule                     = "all-all"
+      source_security_group_id = module.database_sg.security_group_id
+    },
+    {
+      rule                     = "all-all"
+      source_security_group_id = module.elasticache_sg.security_group_id
+    }
+  ]
+}
+
+module "database_sg" {
+  source = "terraform-aws-modules/security-group/aws"
+
+  name        = "${var.env}-database-sg"
+  description = "Database security group"
+  vpc_id      = module.network.vpc_id
+
+  ingress_with_source_security_group_id = [
+    {
+      rule                     = "all-all"
+      source_security_group_id = module.backend_sg.security_group_id
+    }
+  ]
+}
+
+module "elasticache_sg" {
+  source = "terraform-aws-modules/security-group/aws"
+
+  name        = "${var.env}-elasticache-sg"
+  description = "Elasticache security group"
+  vpc_id      = module.network.vpc_id
+
+  ingress_with_source_security_group_id = [
+    {
+      rule                     = "all-all"
+      source_security_group_id = module.backend_sg.security_group_id
+    }
+  ]
+}
+
 module "sg" {
   source = "terraform-aws-modules/security-group/aws"
 
@@ -255,98 +349,4 @@ resource "aws_ecs_service" "server" {
       port_name = "webserver"
     }
   }
-}
-
-# ALB(https)
-module "alb_sg" {
-  source = "terraform-aws-modules/security-group/aws"
-
-  name        = "${var.env}-alb-sg"
-  description = "ALB security group"
-  vpc_id      = module.network.vpc_id
-
-  ingress_cidr_blocks = ["0.0.0.0/0"]
-  ingress_rules       = ["https-443-tcp", "http-80-tcp"]
-  egress_with_source_security_group_id = [
-    {
-      rule                     = "all-all"
-      source_security_group_id = module.frontend_sg.security_group_id
-    }
-  ]
-}
-
-module "frontend_sg" {
-  source = "terraform-aws-modules/security-group/aws"
-
-  name        = "${var.env}-frontend-sg"
-  description = "Frontend security group"
-  vpc_id      = module.network.vpc_id
-
-  ingress_with_source_security_group_id = [
-    {
-      rule                     = "all-all"
-      source_security_group_id = module.alb_sg.security_group_id
-    }
-  ]
-  egress_with_source_security_group_id = [
-    {
-      rule                     = "all-all"
-      source_security_group_id = module.backend_sg.security_group_id
-    }
-  ]
-}
-
-module "backend_sg" {
-  source = "terraform-aws-modules/security-group/aws"
-
-  name        = "${var.env}-backend-sg"
-  description = "Backend security group"
-  vpc_id      = module.network.vpc_id
-
-  ingress_with_source_security_group_id = [
-    {
-      rule                     = "all-all"
-      source_security_group_id = module.frontend_sg.security_group_id
-    }
-  ]
-  egress_with_source_security_group_id = [
-    {
-      rule                     = "all-all"
-      source_security_group_id = module.database_sg.security_group_id
-    },
-    {
-      rule                     = "all-all"
-      source_security_group_id = module.elasticache_sg.security_group_id
-    }
-  ]
-}
-
-module "database_sg" {
-  source = "terraform-aws-modules/security-group/aws"
-
-  name        = "${var.env}-database-sg"
-  description = "Database security group"
-  vpc_id      = module.network.vpc_id
-
-  ingress_with_source_security_group_id = [
-    {
-      rule                     = "all-all"
-      source_security_group_id = module.backend_sg.security_group_id
-    }
-  ]
-}
-
-module "elasticache_sg" {
-  source = "terraform-aws-modules/security-group/aws"
-
-  name        = "${var.env}-elasticache-sg"
-  description = "Elasticache security group"
-  vpc_id      = module.network.vpc_id
-
-  ingress_with_source_security_group_id = [
-    {
-      rule                     = "all-all"
-      source_security_group_id = module.backend_sg.security_group_id
-    }
-  ]
 }
